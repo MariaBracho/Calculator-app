@@ -2,6 +2,8 @@ import { buttons } from "../funcion/buttons.js"
 import { signs } from "./../funcion/buttons.js"
 
 
+
+
 export class Render {
     constructor(root = document.getElementById("root")) {
         this.root = root
@@ -31,7 +33,10 @@ export class Render {
 	   <form >
 		<input class="v" type="text" id="valor" value="" placeholder="0" >
 	   <button type="reset" id="reset" value="">C</button>
-	   </form>`
+	   </form>
+       <p id="result"></p>
+       `
+
     }
 
 }

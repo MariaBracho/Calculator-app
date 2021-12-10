@@ -67,11 +67,11 @@ export class Operador {
     }
 
     getvalue1() {
-        return console.log(this.value1, "soy el valor uno")
+        return this.value1
     }
 
     getvalue2() {
-        return console.log(this.value2, "soy el valor dos")
+        return this.value2
     }
 
     addHistorial(newCalculo) {
