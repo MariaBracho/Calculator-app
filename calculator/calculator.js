@@ -2,7 +2,7 @@ export class Calculadora {
     constructor(op1, op2) {
         this.op1 = op1
         this.op2 = op2
-        this.result = 0
+        this.result = "0"
     }
 
     getresult(result) {
@@ -35,6 +35,10 @@ export class Calculadora {
         }
 
         return OPERATIONS[method]
+    }
+    getresult(result) {
+        this.result = result
+        return this.result
     }
 
 

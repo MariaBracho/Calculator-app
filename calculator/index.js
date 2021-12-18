@@ -3,18 +3,17 @@ import { Operador } from "./calculatormethods.js";
 import { Calculadora } from "./calculator/calculator.js"
 
 let calculate = new Calculadora()
-export let cal = new Operador()
+let cal = new Operador()
 let ren = new Render()
 
 ren.getRender()
 ren.getButtons()
 ren.getsigns()
+ren.showResult()
 cal.getkeysboards()
 cal.getscreenkeys()
 
-
-
-document.getElementById("18").addEventListener("click", () => {
+export const onSubmitResult = () => {
     let currentOperation = cal.getOperation()
     console.log(currentOperation, "operacion")
     cal.findSigns(currentOperation)
@@ -26,10 +25,23 @@ document.getElementById("18").addEventListener("click", () => {
     calculate.getvalues(v1, v2)
     let method = calculate.getOperationByMethod(signs)
     let result = method(calculate.op1, calculate.op2)
-    console.log(result, "resultado")
-    document.getElementById("result").innerHTML = `resultado de la operacion ${result}`
-})
+    cal.getresult(result + cal.lastSigns)
+    ren.showResult(cal.result)
+    document.getElementById("valor").value = cal.input
+    console.log(result, "resultado", cal.result)
+
+}
+
+document.getElementById("18").addEventListener("click", onSubmitResult)
+document.getElementById("valor").addEventListener('keyup', ((e) => {
+    let enter = "Enter"
+    if (e.code === enter) {
+        onSubmitResult()
+    }
+}))
 
 document.getElementById("reset").addEventListener("click", () => {
+    ren.showResult("0")
+    document.getElementById("valor").value = "0"
     console.log(cal.delete(), "borrando operacion")
 })

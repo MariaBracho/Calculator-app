@@ -2,8 +2,6 @@ import { buttons } from "../funcion/buttons.js"
 import { signs } from "./../funcion/buttons.js"
 
 
-
-
 export class Render {
     constructor(root = document.getElementById("root")) {
         this.root = root
@@ -28,15 +26,18 @@ export class Render {
 
     getRender() {
         this.root.innerHTML = `
-		<div class="calculadora">
-		<h1>Calculadora basica</h1>
-	   <form >
+		<div class="calculator">
+		<h1>Basic calculator</h1>
+	   <div >
 		<input class="v" type="text" id="valor" value="" placeholder="0" >
 	   <button type="reset" id="reset" value="">C</button>
-	   </form>
-       <p id="result"></p>
+	   </div>
+       <div id="newRoot"></div>
        `
-
+    }
+    showResult(result = 0) {
+        document.getElementById("newRoot").innerHTML = `
+            <p id="result">The result of the operation is:${result}</p>`
     }
 
 }

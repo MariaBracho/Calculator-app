@@ -8,7 +8,7 @@ export function buttons(id) {
     return result
 }
 
-export let signs = [{
+export const signs = [{
         signs: '+',
         id: 10,
         method: "Add"
@@ -38,3 +38,5 @@ export let signs = [{
 
     }
 ]
+
+export const LIST_OF_OPERATIONS = signs
