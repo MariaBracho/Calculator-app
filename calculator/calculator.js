@@ -2,12 +2,8 @@ export class Calculadora {
     constructor(op1, op2) {
         this.op1 = op1
         this.op2 = op2
-        this.result = "0"
     }
 
-    getresult(result) {
-        return this.result = result
-    }
     Add(op1, op2) {
         return (op1 + op2)
     }
@@ -24,6 +20,8 @@ export class Calculadora {
     getvalues(op1, op2) {
         this.op1 = Number(op1)
         this.op2 = Number(op2)
+
+        return [this.op1, this.op2]
     }
 
     getOperationByMethod(method) {
@@ -36,12 +34,4 @@ export class Calculadora {
 
         return OPERATIONS[method]
     }
-    getresult(result) {
-        this.result = result
-        return this.result
-    }
-
-
-
-
 }

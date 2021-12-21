@@ -1,13 +1,13 @@
 import { buttons } from "../funcion/buttons.js";
 import { signs } from "../funcion/buttons.js";
-import { onSubmitResult } from "../index.js"
+import { onSubmitResult } from "./index.js"
 
 export class Operador {
     constructor(value1, value2) {
         this.value1 = value1
         this.value2 = value2
         this.result = "0"
-        this.historial = []
+        this.history = []
         this.input = ""
         this.signs = ""
         this.lastSigns = ""
@@ -20,11 +20,9 @@ export class Operador {
                 let result2 = string.charAt(result)
                 console.log(result2, "signo de la operacion")
                 this.signs = result2
-                return result2
             }
         })
-    }
-    getSigns() {
+
         return this.signs
     }
 
@@ -91,28 +89,17 @@ export class Operador {
         return cut
     }
 
-    getvalue1() {
-        return this.value1
+    addHistory(newCalculo = { result: this.result, operation: this.input }) {
+        this.history.push(newCalculo)
     }
 
-    getvalue2() {
-        return this.value2
-    }
-
-    addHistorial(newCalculo) {
-        this.historial.push(newCalculo)
-    }
-
-    setResult(results) {
-        this.result = results
-        this.addHistorial(this.result)
-        return this.result
-    }
-    getresult(result) {
+    setResult(result) {
         this.result = result
         this.input = result
 
+        return [this.result, this.input]
     }
+
     getlastSigns(newSign) {
         return this.lastSigns = newSign
     }

@@ -1,36 +1,67 @@
-import { Render } from "./UI/render.js";
+import { Render } from "../UI/render.js";
 import { Operador } from "./calculatormethods.js";
-import { Calculadora } from "./calculator/calculator.js"
+import { Calculadora } from "./calculator.js"
 
 let calculate = new Calculadora()
-let cal = new Operador()
-let ren = new Render()
+let calculator = new Operador()
+let render = new Render()
 
-ren.getRender()
-ren.getButtons()
-ren.getsigns()
-ren.showResult()
-cal.getkeysboards()
-cal.getscreenkeys()
+render.renderInput()
+render.renderButtons()
+render.renderSigns()
+render.renderResult()
+calculator.getkeysboards()
+calculator.getscreenkeys()
+
 
 export const onSubmitResult = () => {
-    let currentOperation = cal.getOperation()
-    console.log(currentOperation, "operacion")
-    cal.findSigns(currentOperation)
-    let signs = cal.getSigns()
-    cal.getOp1(currentOperation, signs)
-    cal.getOp2(currentOperation, signs)
-    let v1 = cal.getvalue1() //opcion 1
-    let v2 = cal.getvalue2() // opcion 2
-    calculate.getvalues(v1, v2)
-    let method = calculate.getOperationByMethod(signs)
-    let result = method(calculate.op1, calculate.op2)
-    cal.getresult(result + cal.lastSigns)
-    ren.showResult(cal.result)
-    document.getElementById("valor").value = cal.input
-    console.log(result, "resultado", cal.result)
+    const currentOperation = calculator.getOperation()
+
+    const sign = calculator.findSigns(currentOperation)
+
+    const operationOne = calculator.getOp1(currentOperation, sign)
+    const operationTwo = calculator.getOp2(currentOperation, sign)
+
+    const [newOperationOne, newOperationTwo] = calculate.getvalues(operationOne, operationTwo)
+
+    const operationToResolve = calculate.getOperationByMethod(sign)
+    const resultOfOperation = operationToResolve(newOperationOne, newOperationTwo)
+
+    const newStackHistory = { results: resultOfOperation, operation: currentOperation }
+
+    calculator.addHistory(newStackHistory)
+
+    const newResult = resultOfOperation + calculator.lastSigns
+    calculator.setResult(newResult)
+
+    render.renderResult(newResult)
+
+    setNewValueToInput(calculator.input)
+}
+
+export const setNewValueToInput = (newValue) => {
+    document.getElementById("valor").value = newValue
+}
+
+
+const showHistory = () => {
+    render.renderButton()
+    let history = calculator.history
+    document.getElementById("hidehistory-button").addEventListener("click", hiddeHistory)
+    let resultAndOperation = history.filter((number) => {
+        return render.renderHistory(number.operation, number.results)
+    })
+    return resultAndOperation
+
 
 }
+const hiddeHistory = () => {
+    render.hideHistory()
+}
+
+
+document.getElementById("historybutton").addEventListener("click", showHistory)
+
 
 document.getElementById("18").addEventListener("click", onSubmitResult)
 document.getElementById("valor").addEventListener('keyup', ((e) => {
@@ -41,7 +72,6 @@ document.getElementById("valor").addEventListener('keyup', ((e) => {
 }))
 
 document.getElementById("reset").addEventListener("click", () => {
-    ren.showResult("0")
+    render.renderResult("0")
     document.getElementById("valor").value = "0"
-    console.log(cal.delete(), "borrando operacion")
 })
