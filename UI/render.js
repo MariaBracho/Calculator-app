@@ -11,7 +11,7 @@ export class Render {
         let button = buttons(9)
         button.forEach((number) => {
             this.root.innerHTML += `
-			<input class="botton botton${number}" type="button" value="${number}" id="${number}">
+			<input class="button button${number}" type="button" value="${number}" id="${number}">
 	`
         })
     }
@@ -19,7 +19,7 @@ export class Render {
         let s = signs
         s.forEach((S) => {
             this.root.innerHTML += `
-			<input class="botton botton${S.id}" type="button" value="${S.signs}" id="${S.id}">
+			<input class="button button${S.id}" type="button" value="${S.signs}" id="${S.id}">
 	`
         })
     }
@@ -52,7 +52,9 @@ export class Render {
     }
     renderButton() {
         document.getElementById("hidehistory").innerHTML = `
-           <input type="button" value="x" id="hidehistory-button">
+        
+           <input type="button" value="x" class="button" id="hidehistory-button">
+           
         `
     }
 

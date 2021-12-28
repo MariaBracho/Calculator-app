@@ -1,5 +1,4 @@
 import { buttons } from "../funcion/buttons.js";
-import { signs } from "../funcion/buttons.js";
 import { onSubmitResult } from "./index.js"
 
 export class Operador {
@@ -10,24 +9,25 @@ export class Operador {
         this.history = []
         this.input = ""
         this.signs = ""
-        this.lastSigns = ""
+        this.lastsigns = ""
+        this.validate = /^[+-]?(\d{1,}\.?\d*)+([-+/x])+(\d{1,}\.?\d*)+([-+/x])?$/
+    }
+    NoRepeat(currentInput = document.getElementById("valor")) {
+        const onlyOperation = /[^\d\/\+x-]/g
+        currentInput.addEventListener("input", (e) => {
+            let value = e.target.value
+            e.target.value = value.replace(onlyOperation, "")
+        })
     }
 
-    findSigns(string) {
-        signs.filter((s) => {
-            let result = string.indexOf(s.signs)
-            if (result != -1) {
-                let result2 = string.charAt(result)
-                console.log(result2, "signo de la operacion")
-                this.signs = result2
-            }
-        })
-
-        return this.signs
+    findSigns(currentInput) {
+        const validation = this.validate
+        let sign = currentInput.match(validation)
+        return this.signs = sign[2]
     }
 
     delete() {
-        this.input = "0"
+        this.input = ""
         this.result = "0"
     }
     getkeysboards() {
@@ -51,42 +51,28 @@ export class Operador {
 
     handleChangeInputValue(value) {
         this.input = value
-        let input = [...value]
+        const inputValidation = /^[+-]?(\d{1,}\.?\d+)+([-+/x])+(\d{1,}\.?\d+)+([-+/x])+$/
 
-        let reduce = signs.reduce((contador, signs) => {
-            let findsigns = input.filter(element => {
-                return element === signs.signs
-            }).length
-
-            contador += findsigns
-            return contador
-        }, 0) > 1
-
-        if (reduce) {
-            let currentInput = value.length
-            this.input = value.substring(0, currentInput - 1)
-            let lastSign = value.substring(currentInput - 1, currentInput)
-            this.getlastSigns(lastSign)
+        if (inputValidation.test(value)) {
+            let sign = value.match(inputValidation)
+            this.lastsigns = sign[4]
             onSubmitResult()
-            if (onSubmitResult) {
-                console.log(this.lastSigns, "ultimo signo")
-            }
         }
 
     }
-    getOp1(string, signs) {
-        let result = string.indexOf(signs)
-        let extract = string.substring(result, -1);
-        this.value1 = extract
-        return extract
+    getOp1(currentInput = this.input) {
+        const validation = this.validate
+        let valueOne = currentInput.match(validation)
+        this.value1 = valueOne[1]
+        console.log(valueOne[1])
+        return this.value1
 
     }
-    getOp2(string, signs) {
-        let result = string.indexOf(signs)
-        let extract = string.substring(result, string.length);
-        let cut = extract.substring(1, string.length)
-        this.value2 = cut
-        return cut
+    getOp2(currentInput = this.input) {
+        const validation = this.validate
+        let valueTwo = currentInput.match(validation)
+        this.value2 = valueTwo[3]
+        return this.value2
     }
 
     addHistory(newCalculo = { result: this.result, operation: this.input }) {
@@ -99,11 +85,6 @@ export class Operador {
 
         return [this.result, this.input]
     }
-
-    getlastSigns(newSign) {
-        return this.lastSigns = newSign
-    }
-
     getHistory() {
         return this.historial
     }

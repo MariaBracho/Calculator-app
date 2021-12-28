@@ -12,15 +12,17 @@ render.renderSigns()
 render.renderResult()
 calculator.getkeysboards()
 calculator.getscreenkeys()
+calculator.NoRepeat()
 
 
 export const onSubmitResult = () => {
-    const currentOperation = calculator.getOperation()
+    let currentOperation = calculator.getOperation()
 
     const sign = calculator.findSigns(currentOperation)
 
-    const operationOne = calculator.getOp1(currentOperation, sign)
-    const operationTwo = calculator.getOp2(currentOperation, sign)
+
+    const operationOne = calculator.getOp1()
+    const operationTwo = calculator.getOp2()
 
     const [newOperationOne, newOperationTwo] = calculate.getvalues(operationOne, operationTwo)
 
@@ -31,12 +33,12 @@ export const onSubmitResult = () => {
 
     calculator.addHistory(newStackHistory)
 
-    const newResult = resultOfOperation + calculator.lastSigns
+    const newResult = resultOfOperation
     calculator.setResult(newResult)
 
     render.renderResult(newResult)
 
-    setNewValueToInput(calculator.input)
+    setNewValueToInput(calculator.input + calculator.lastsigns)
 }
 
 export const setNewValueToInput = (newValue) => {
@@ -73,5 +75,5 @@ document.getElementById("valor").addEventListener('keyup', ((e) => {
 
 document.getElementById("reset").addEventListener("click", () => {
     render.renderResult("0")
-    document.getElementById("valor").value = "0"
+    document.getElementById("valor").value = ""
 })
