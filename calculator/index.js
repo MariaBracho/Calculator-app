@@ -18,6 +18,7 @@ calculator.NoRepeat()
 export const onSubmitResult = () => {
     let currentOperation = calculator.getOperation()
 
+
     const sign = calculator.findSigns(currentOperation)
 
 
@@ -27,14 +28,18 @@ export const onSubmitResult = () => {
     const [newOperationOne, newOperationTwo] = calculate.getvalues(operationOne, operationTwo)
 
     const operationToResolve = calculate.getOperationByMethod(sign)
-    const resultOfOperation = operationToResolve(newOperationOne, newOperationTwo)
+    let resultOfOperation = operationToResolve(newOperationOne, newOperationTwo)
 
     const newStackHistory = { results: resultOfOperation, operation: currentOperation }
 
     calculator.addHistory(newStackHistory)
-
-    const newResult = resultOfOperation
+    if (isNaN(resultOfOperation)) {
+        resultOfOperation = "Error de formato"
+        console.log("no es un numero")
+    }
+    let newResult = resultOfOperation
     calculator.setResult(newResult)
+
 
     render.renderResult(newResult)
 

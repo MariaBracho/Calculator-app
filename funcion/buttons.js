@@ -36,6 +36,14 @@ export const signs = [{
         signs: "=",
         id: 18,
 
+    },
+    {
+        signs: "(",
+        id: 15,
+    },
+    {
+        signs: ")",
+        id: 16,
     }
 ]
 
