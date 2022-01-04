@@ -10,26 +10,20 @@ export class Operador {
         this.input = ""
         this.signs = ""
         this.lastsigns = ""
-        this.validate = /^([\+\/\.x-]?\(?[+-]?\d{1,}\.?\d*\)?)([-+/x])+(\(?[+-]?\d{1,}\.?\d*\)?)+([-+/x])?$/
-            //this.validate = /^([+-]?\d{1,}\.?\d*)+([-+/x])+(\d{1,}\.?\d*)+([-+/x])?$/
+        this.validate = /^([\+\/\.x-]?\(?[+-]?\d{1,}\.?\d*\)?)(\^?)(\d*)([-+/x])+(\(?[+-]?\d{1,}\.?\d*\)?)+(\^?)(\d*)([-+/x])?$/
     }
+
     noParentesis(value) {
         const parentesis = /[\)\(]/g
-        let p = value.replace(parentesis, "")
-        console.log(p, "funciona el parentesis")
-        return p
+        return value.replace(parentesis, "")
 
     }
 
     NoRepeat(currentInput = document.getElementById("valor")) {
-        //let value2 = this.validate
-        const onlyOperation = /[^\d\/\+\.\(\)xX-]/g
+        const onlyOperation = /[^\d\/\+\.\(\)\^x-]/g
         currentInput.addEventListener("input", (e) => {
             let value = e.target.value
             e.target.value = value.replace(onlyOperation, "")
-                // if (value2.test(value)) {
-                // console.log("funciona la prueba dos")
-                // }
         })
 
 
@@ -38,7 +32,7 @@ export class Operador {
     findSigns(currentInput) {
         const validation = this.validate
         let sign = currentInput.match(validation)
-        this.signs = sign[2]
+        this.signs = sign[4]
         console.log(this.signs, "signo encontrado")
         return this.signs
     }
@@ -68,14 +62,13 @@ export class Operador {
 
     handleChangeInputValue(value) {
         this.input = value
-        const inputValidation = /^([\+\/\.-x]?\(?[+-]?\d{1,}\.?\d*\)?)([-+/x])+(\(?[+-]?\d{1,}\.?\d*\)?)+([-+/x])+$/
-            // const inputValidation = /^([+-]?\d{1,}\.?\d*)+([-+/x])+(\d{1,}\.?\d*)+([-+/x])+$/
-        const SignsRepeat = /[\/\+\.x-]{2,}/
+        const inputValidation = /^([\+\/\.-x]?\(?[+-]?\d{1,}\.?\d*\)?)(\^?)(\d*)([-+/x])+(\(?[+-]?\d{1,}\.?\d*\)?)+(\^?)(\d*)([-+/x])+$/
+        const SignsRepeat = /[\/\+\.\^x-]{2,}/
 
         if (inputValidation.test(value)) {
             console.log("funciona")
             let sign = value.match(inputValidation)
-            this.lastsigns = sign[4]
+            this.lastsigns = sign[8]
             onSubmitResult()
 
         }
@@ -88,11 +81,31 @@ export class Operador {
             console.log(lastSing, "last")
 
         }
+
     }
     getOp1(currentInput = this.input) {
         const validation = this.validate
         let valueOne = currentInput.match(validation)
-        this.value1 = this.noParentesis(valueOne[1])
+        let firt = this.noParentesis(valueOne[1])
+
+        let prueba = /\(\d+[\/x+-]\d+\)\^\d+/
+
+        let expo = () => {
+            if (valueOne[2]) {
+                let exponent = Math.pow(firt, valueOne[3])
+
+                return this.value1 = exponent
+            }
+            if (prueba.test(currentInput)) {
+                let exponent = Math.pow(firt, valueOne[7])
+                return this.value1 = exponent
+            } else {
+
+                this.value1 = firt
+            }
+        }
+        expo()
+
         console.log(this.value1, "one")
         return this.value1
 
@@ -100,7 +113,15 @@ export class Operador {
     getOp2(currentInput = this.input) {
         const validation = this.validate
         let valueTwo = currentInput.match(validation)
-        this.value2 = this.noParentesis(valueTwo[3])
+        let Second = this.noParentesis(valueTwo[5])
+
+        if (valueTwo[6]) {
+            let exponent = Math.pow(Second, valueTwo[7])
+            return this.value2 = exponent
+        } else {
+
+            this.value2 = Second
+        }
         console.log(this.value2, "two")
         return this.value2
     }

@@ -15,7 +15,9 @@ calculator.getscreenkeys()
 calculator.NoRepeat()
 
 
+
 export const onSubmitResult = () => {
+
     let currentOperation = calculator.getOperation()
 
 
@@ -33,6 +35,9 @@ export const onSubmitResult = () => {
     const newStackHistory = { results: resultOfOperation, operation: currentOperation }
 
     calculator.addHistory(newStackHistory)
+    localStorage.setItem("calculo", JSON.stringify(calculator.history))
+
+
     if (isNaN(resultOfOperation)) {
         resultOfOperation = "Error de formato"
         console.log("no es un numero")
@@ -44,6 +49,7 @@ export const onSubmitResult = () => {
     render.renderResult(newResult)
 
     setNewValueToInput(calculator.input + calculator.lastsigns)
+
 }
 
 export const setNewValueToInput = (newValue) => {
@@ -51,14 +57,24 @@ export const setNewValueToInput = (newValue) => {
 }
 
 
+
 const showHistory = () => {
+
+    let getLocalStorage = localStorage.getItem("calculo")
     render.renderButton()
+
+    calculator.history = JSON.parse(getLocalStorage)
     let history = calculator.history
+    console.log(history)
+
     document.getElementById("hidehistory-button").addEventListener("click", hiddeHistory)
-    let resultAndOperation = history.filter((number) => {
-        return render.renderHistory(number.operation, number.results)
-    })
-    return resultAndOperation
+    if (history) {
+        let resultAndOperation = history.filter((number) => {
+            return render.renderHistory(number.operation, number.results)
+        })
+        return resultAndOperation
+    }
+
 
 
 }
@@ -66,19 +82,35 @@ const hiddeHistory = () => {
     render.hideHistory()
 }
 
-
 document.getElementById("historybutton").addEventListener("click", showHistory)
 
 
-document.getElementById("18").addEventListener("click", onSubmitResult)
+document.getElementById("18").addEventListener("click", () => {
+    try {
+        onSubmitResult()
+    } catch (e) {
+        console.log(e, "error de formato")
+        render.renderResult(" Error de formato")
+    }
+})
+
 document.getElementById("valor").addEventListener('keyup', ((e) => {
     let enter = "Enter"
     if (e.code === enter) {
-        onSubmitResult()
+        try {
+            onSubmitResult()
+        } catch (e) {
+            console.log(e, "error de formato")
+            render.renderResult(" Error de formato")
+        }
     }
 }))
 
 document.getElementById("reset").addEventListener("click", () => {
     render.renderResult("0")
     document.getElementById("valor").value = ""
+})
+
+document.getElementById("historybutton-clear").addEventListener("click", () => {
+    localStorage.clear()
 })

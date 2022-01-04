@@ -31,6 +31,7 @@ export class Render {
         <div id="hidehistory"></div>
        <div class="history" id="history"></div>
        <input class="historybutton" type="button" id="historybutton" value="History ">
+       <input class="historybutton" type="button" id="historybutton-clear" value="Clear history ">
 		<input class="v" type="text" id="valor" value="" placeholder="0" >
 	   <button type="reset" id="reset" value="">C</button>
 	   </div>
