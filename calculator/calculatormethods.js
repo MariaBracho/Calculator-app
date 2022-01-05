@@ -10,7 +10,7 @@ export class Operador {
         this.input = ""
         this.signs = ""
         this.lastsigns = ""
-        this.validate = /^([\+\/\.x-]?\(?[+-]?π?\d*\.?\d*\)?)(\^?)(π?\d*)([-+/x])(\(?[+-]?π?\d*\.?\d*\)?)+(\^?)(π?\d*)([-+/x])?$/
+        this.validate = /^([\+\/\.x-]?\(?[+-]?[\d*π?]{1,}\.?\d*\)?)(\^?)(π?\d*)([\/\+x-])+(\(?[+-]?[\d*π?]{1,}\.?\d*\)?)+(\^?)(π?\d*)([/x+-])?$/
     }
 
     noParentesis(value) {
@@ -20,7 +20,7 @@ export class Operador {
     }
 
     NoRepeat(currentInput = document.getElementById("valor")) {
-        const onlyOperation = /[^\d\/\+\.\(\)\^x-π]/g
+        const onlyOperation = /[^\d\/\+\.\(\)\^πx-]/g
         currentInput.addEventListener("input", (e) => {
             let value = e.target.value
             e.target.value = value.replace(onlyOperation, "")
@@ -33,6 +33,7 @@ export class Operador {
         const validation = this.validate
         let sign = currentInput.match(validation)
         this.signs = sign[4]
+        console.log(sign[4], "signo encontrado")
         return this.signs
     }
 
@@ -61,14 +62,17 @@ export class Operador {
 
     handleChangeInputValue(value) {
         this.input = value
-        const inputValidation = /^([\+\/\.x-]?\(?[+-]?π?\d*\.?\d*\)?)(\^?)(π?\d*)([-+/x])+(\(?[+-]?π?\d*\.?\d*\)?)+(\^?)(π?\d*)([-+/x])+$/
+        const inputValidation = /^([\+\/\.x-]?\(?[+-]?[\d*π?]{1,}\.?\d*\)?)(\^?)(π?\d*)([\/\+x-])+(\(?[+-]?[\d*π?]{1,}\.?\d*\)?)+(\^?)(π?\d*)([/x+-])+$/
         const SignsRepeat = /[\/\+\.\^x-]{2,}/
+
+        let prueba = "2+4-"
 
         if (inputValidation.test(value)) {
             console.log("funciona el automatico")
             let sign = value.match(inputValidation)
             this.lastsigns = sign[8]
             onSubmitResult()
+
 
         }
         if (SignsRepeat.test(value)) {
@@ -81,7 +85,7 @@ export class Operador {
 
     }
     getOp1(currentInput = this.input) {
-        const validation = this.validate
+        let validation = this.validate
         let valueOne = currentInput.match(validation)
         valueOne[1] = this.noParentesis(valueOne[1])
 
@@ -93,6 +97,7 @@ export class Operador {
             if (valueOne[3].indexOf(pi) != -1 || valueOne[1].indexOf(pi) != -1) {
                 valueOne[3] = valueOne[3].replace(pi, Math.PI)
                 valueOne[1] = valueOne[1].replace(pi, Math.PI)
+
             }
             if (valueOne[2]) {
                 let exponent = Math.pow(valueOne[1], valueOne[3])
@@ -114,7 +119,7 @@ export class Operador {
 
     }
     getOp2(currentInput = this.input) {
-        const validation = /^([\+\/\.x-]?\(?[+-]?π?\d*\.?\d*\)?)(\^?)(π?\d*)([-+/x])+(\(?[+-]?π?\d*\.?\d*\)?)+(\^?)(π?\d*)([-+/x])*$/
+        const validation = this.validate
         let valueTwo = currentInput.match(validation)
         valueTwo[5] = this.noParentesis(valueTwo[5])
 
@@ -127,9 +132,6 @@ export class Operador {
         if (valueTwo[6]) {
             let exponent = Math.pow(valueTwo[5], valueTwo[7])
             return this.value2 = exponent
-        }
-        if (valueTwo[5] == null) {
-            this.value2 = "0"
         } else {
             this.value2 = valueTwo[5]
         }
