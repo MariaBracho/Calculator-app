@@ -34,7 +34,7 @@ export const signs = [{
 
     }, {
         signs: "=",
-        id: 18,
+        id: 20,
 
     },
     {
@@ -44,7 +44,22 @@ export const signs = [{
     {
         signs: ")",
         id: 16,
-    }
+    },
+    {
+        signs: "^",
+        id: 17,
+    },
+    {
+        signs: "&radic;",
+        id: 19,
+        value: "3,141592"
+    },
+    {
+        signs: "&pi;",
+        id: 18,
+        value: "3.141592"
+    },
+
 ]
 
 export const LIST_OF_OPERATIONS = signs

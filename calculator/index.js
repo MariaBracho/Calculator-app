@@ -16,13 +16,14 @@ calculator.NoRepeat()
 
 
 
+
+
 export const onSubmitResult = () => {
 
     let currentOperation = calculator.getOperation()
 
 
     const sign = calculator.findSigns(currentOperation)
-
 
     const operationOne = calculator.getOp1()
     const operationTwo = calculator.getOp2()
@@ -34,8 +35,11 @@ export const onSubmitResult = () => {
 
     const newStackHistory = { results: resultOfOperation, operation: currentOperation }
 
+
     calculator.addHistory(newStackHistory)
+
     localStorage.setItem("calculo", JSON.stringify(calculator.history))
+
 
 
     if (isNaN(resultOfOperation)) {
@@ -59,24 +63,32 @@ export const setNewValueToInput = (newValue) => {
 
 
 const showHistory = () => {
+    const onSubmitResultisTrue = () => {
+        if (onSubmitResult) {
+            let getLocalStorage = localStorage.getItem("calculo")
+            calculator.history = JSON.parse(getLocalStorage)
+        }
+        if (calculator.history == null) {
+            calculator.history = []
+        }
+    }
+    onSubmitResultisTrue()
 
-    let getLocalStorage = localStorage.getItem("calculo")
     render.renderButton()
 
-    calculator.history = JSON.parse(getLocalStorage)
-    let history = calculator.history
-    console.log(history)
-
     document.getElementById("hidehistory-button").addEventListener("click", hiddeHistory)
+    historyfilter()
+
+
+}
+export const historyfilter = (history = calculator.history) => {
+
     if (history) {
         let resultAndOperation = history.filter((number) => {
             return render.renderHistory(number.operation, number.results)
         })
         return resultAndOperation
     }
-
-
-
 }
 const hiddeHistory = () => {
     render.hideHistory()
@@ -85,7 +97,7 @@ const hiddeHistory = () => {
 document.getElementById("historybutton").addEventListener("click", showHistory)
 
 
-document.getElementById("18").addEventListener("click", () => {
+document.getElementById("20").addEventListener("click", () => {
     try {
         onSubmitResult()
     } catch (e) {
@@ -113,4 +125,6 @@ document.getElementById("reset").addEventListener("click", () => {
 
 document.getElementById("historybutton-clear").addEventListener("click", () => {
     localStorage.clear()
+    calculator.history = []
+
 })

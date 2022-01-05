@@ -32,7 +32,7 @@ export class Render {
        <div class="history" id="history"></div>
        <input class="historybutton" type="button" id="historybutton" value="History ">
        <input class="historybutton" type="button" id="historybutton-clear" value="Clear history ">
-		<input class="v" type="text" id="valor" value="" placeholder="0" >
+		<input class="v" type="text" id="valor" value="" placeholder="0"  onpaste="return false" >
 	   <button type="reset" id="reset" value="">C</button>
 	   </div>
        <div id="newRoot"></div>
