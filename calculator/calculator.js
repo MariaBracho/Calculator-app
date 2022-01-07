@@ -23,6 +23,15 @@ export class Calculadora {
 
         return [this.op1, this.op2]
     }
+    exponent(base, exponent) {
+        return Math.pow(base, exponent)
+    }
+    squareRoot(root) {
+        return Math.sqrt(root)
+    }
+    PI(pi) {
+        return Math.PI(pi)
+    }
 
     getOperationByMethod(method) {
         const OPERATIONS = {
@@ -30,6 +39,9 @@ export class Calculadora {
             ["-"]: this.subtraction,
             ["/"]: this.divide,
             ["x"]: this.multiply,
+            ["√"]: this.squareRoot,
+            ["^"]: this.exponent,
+            ["π"]: this.PI
         }
 
         return OPERATIONS[method]

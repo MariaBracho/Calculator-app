@@ -13,6 +13,32 @@ export class Operador {
         this.validate = /^([\+\/\.x-]?\(?[+-]?[\d*π?]{1,}\.?\d*\)?)(\^?)(π?\d*)([\/\+x-])+(\(?[+-]?[\d*π?]{1,}\.?\d*\)?)+(\^?)(π?\d*)([/x+-])?$/
     }
 
+    specialOperations(value = this.input) {
+        const firtsOption = /^([\+\/-]?\(?[+-]?[π?\d*]{1,}\.?\d*\)?)(\^?)(π?\d*){1,}$/
+        let sign = value.match(firtsOption)
+        const pi = /\π/g
+
+        console.log("solo una operacion", value)
+
+        if (firtsOption.test(value)) {
+            value = this.noParentesis(value)
+            value = value.replace(pi, Math.PI)
+            console.log("solo una operacion", value)
+        }
+        if (sign[2]) {
+            let exponent = Math.pow(sign[1].replace(pi, Math.PI), sign[3].replace(pi, Math.PI))
+            console.log("exponente sirve", exponent, sign[1], sign[3])
+            return value = exponent
+
+        } else {
+            console.log("solo una operacion", value)
+        }
+        console.log("solo una operacion", value)
+        return value
+    }
+
+
+
     noParentesis(value) {
         const parentesis = /[\)\(]/g
         return value.replace(parentesis, "")
@@ -65,16 +91,14 @@ export class Operador {
         const inputValidation = /^([\+\/\.x-]?\(?[+-]?[\d*π?]{1,}\.?\d*\)?)(\^?)(π?\d*)([\/\+x-])+(\(?[+-]?[\d*π?]{1,}\.?\d*\)?)+(\^?)(π?\d*)([/x+-])+$/
         const SignsRepeat = /[\/\+\.\^x-]{2,}/
 
-        let prueba = "2+4-"
 
         if (inputValidation.test(value)) {
             console.log("funciona el automatico")
             let sign = value.match(inputValidation)
             this.lastsigns = sign[8]
             onSubmitResult()
-
-
         }
+
         if (SignsRepeat.test(value)) {
             let sign = value.match(SignsRepeat)
             let findSing = sign[0]
@@ -156,6 +180,8 @@ export class Operador {
     getOperation() {
         return this.input
     }
+
+
 
 
 

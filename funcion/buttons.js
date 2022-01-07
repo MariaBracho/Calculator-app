@@ -50,12 +50,12 @@ export const signs = [{
         id: 17,
     },
     {
-        signs: "&radic;",
+        signs: "√",
         id: 19,
         value: "3,141592"
     },
     {
-        signs: "&pi;",
+        signs: "π",
         id: 18,
         value: "3.141592"
     },

@@ -14,12 +14,19 @@ calculator.getkeysboards()
 calculator.getscreenkeys()
 calculator.NoRepeat()
 
+const resolveOperation = (callback) => {
+    try {
+        callback()
+        return [true, "Operacion exitosa"]
+    } catch (error) {
+        const ERROR_MESSAGE = "Error de formato"
+        console.error('Error', ERROR_MESSAGE)
+        return [false, ERROR_MESSAGE]
+    }
+}
 
 
-
-
-export const onSubmitResult = () => {
-
+export const onSubmitResult = () => resolveOperation(() => {
     let currentOperation = calculator.getOperation()
 
 
@@ -53,13 +60,33 @@ export const onSubmitResult = () => {
     render.renderResult(newResult)
 
     setNewValueToInput(calculator.input + calculator.lastsigns)
+})
 
-}
+export const onSubmitResult_onlyOpcion = () => resolveOperation(() => {
+    let currentOperation = calculator.getOperation()
+
+    let result = calculator.specialOperations()
+    const newStackHistory = { results: result, operation: currentOperation }
+    console.log(newStackHistory)
+
+
+    calculator.addHistory(newStackHistory)
+
+    localStorage.setItem("calculo", JSON.stringify(calculator.history))
+
+    let newResult = result
+    calculator.setResult(newResult)
+
+
+    render.renderResult(newResult)
+
+    setNewValueToInput(calculator.input)
+
+})
 
 export const setNewValueToInput = (newValue) => {
     document.getElementById("valor").value = newValue
 }
-
 
 
 const showHistory = () => {
@@ -98,11 +125,12 @@ document.getElementById("historybutton").addEventListener("click", showHistory)
 
 
 document.getElementById("20").addEventListener("click", () => {
-    try {
-        onSubmitResult()
-    } catch (e) {
-        console.log(e, "error de formato")
-        render.renderResult(" Error de formato")
+    const [status] = onSubmitResult()
+
+    if (!status) {
+        const [status, message] = onSubmitResult_onlyOpcion()
+
+        if (!status) throw render.renderResult(message)
     }
 })
 
