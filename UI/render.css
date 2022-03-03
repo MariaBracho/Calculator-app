@@ -4,15 +4,24 @@
     box-sizing: border-box;
 }
 
+:root {
+    --primaryColor: #121212;
+    --secundaryColor: #141E61;
+    --White: #EEEEEE;
+    --gris: #505268;
+    --box-shadow: #121212;
+}
+
 .root {
     width: 100%;
     height: 100vh;
 }
 
 .sub_root {
-    max-width: 600px;
+    max-width: 880px;
     height: 100vh;
     padding: 0 24px;
+    margin: 0 auto;
 }
 
 .title {
@@ -57,8 +66,7 @@
 }
 
 .historybutton_clear {
-    display: none;
-    background-color: white;
+    background-color: var(--White);
     border: none;
     color: #293845;
     border-radius: 12px;
@@ -66,6 +74,8 @@
     height: 24px;
     cursor: pointer;
     position: relative;
+    font-family: 'Ubuntu', sans-serif;
+    ;
 }
 
 .calculator_input {
@@ -112,12 +122,38 @@
 
 .containerButtons .containerButtons_buttons:last-child {
     background-color: #6558f5;
-    grid-column: 3/5;
+    grid-column: 2/6;
     border-radius: 8px;
 }
 
 .button20 {
     color: white;
+    width: 100%;
+}
+
+.button_container15,
+.button_container16,
+.button_container17,
+.button_container18 {
+    grid-row: 1/2;
+}
+
+.button_container10,
+.button_container11,
+.button_container12 {
+    grid-column: 5/6;
+}
+
+.button_container10 {
+    grid-row: 2/3;
+}
+
+.button_container11 {
+    grid-row: 3/4;
+}
+
+.button_container12 {
+    grid-row: 4/5;
 }
 
 .calculator_operacion {
@@ -132,19 +168,34 @@
     font-family: 'Ubuntu', sans-serif;
 }
 
+.buttonReset {
+    grid-column: 1/2;
+    grid-row: 1/2;
+}
+
 .containerButtons_buttons--mode {
-    grid-row: 6/7;
-    grid-column: 2/3;
+    grid-row: 5/6;
+    grid-column: 1/2;
 }
 
 .button_mode {
     background-color: #858d95;
-    width: 100%;
-    height: 30px;
+    width: 72px;
     border-radius: 34px;
     display: flex;
     align-items: center;
     cursor: pointer;
+    border: none;
+    outline: none;
+}
+
+.button_mode:active {
+    background-color: #293845;
+}
+
+.operacion {
+    color: #293845;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 .button_mode_circule {
@@ -168,7 +219,7 @@
 .menuHistory {
     width: 100%;
     height: 100vh;
-    background-color: #293845;
+    background-color: var(--primaryColor);
     position: absolute;
     display: none;
 }
@@ -189,9 +240,10 @@
 }
 
 .result {
-    color: white;
+    color: var(--White);
     font-size: 24px;
     line-height: 3;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 .HistoryTitle {
@@ -201,14 +253,13 @@
 }
 
 .HistoryTitle_text {
-    color: white;
+    color: var(--White);
     font-size: 26px;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 @media(min-width: 768px) {
     .sub_root {
-        max-width: 100%;
-        width: 100vw;
         padding: 0 40px
     }
     .button {
@@ -217,4 +268,39 @@
     .title_text {
         font-size: 22px;
     }
+}
+
+
+/*--------------  Dark Mode -----------------*/
+
+body.dark .root {
+    background-color: var(--primaryColor);
+    transition: 0.5s ease;
+}
+
+body.dark .calculator_input {
+    transition: 0.5s ease;
+    background-color: var(--primaryColor);
+    color: var(--White);
+}
+
+body.dark .title_text {
+    color: var(--White);
+}
+
+body.dark .operacion {
+    color: var(--White);
+}
+
+body.dark .button {
+    color: var(--White);
+}
+
+body.dark .button_mode {
+    justify-content: end;
+    background-color: var(--secundaryColor);
+}
+
+body.dark .containerButtons .containerButtons_buttons:last-child {
+    background-color: var(--gris);
 }

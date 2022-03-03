@@ -1,4 +1,4 @@
-import { buttons } from "../funcion/buttons.js";
+//import { buttons } from "../funcion/buttons.js";
 import { onSubmitResult } from "./index.js"
 
 export class Operador {
@@ -68,7 +68,7 @@ export class Operador {
         this.result = "0"
     }
     getkeysboards() {
-        let actionButtons = buttons(18)
+        let actionButtons = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
 
         actionButtons.forEach((c) => {
             const action = document.getElementById(c)

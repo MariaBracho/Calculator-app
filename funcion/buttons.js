@@ -1,12 +1,4 @@
-export function buttons(id) {
-    let result = []
-
-    for (let i = 0; i <= id; i++) {
-        result.push(i)
-    }
-
-    return result
-}
+export const BUTTONS_NUMBER = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
 
 export const signs = [{
         signs: '+',
@@ -50,11 +42,7 @@ export const signs = [{
         signs: "^",
         id: 17,
     },
-    {
-        signs: "√",
-        id: 19,
-        value: "3,141592"
-    },
+
 
     {
         signs: "=",

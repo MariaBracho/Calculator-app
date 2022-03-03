@@ -1,4 +1,4 @@
-import { buttons } from "../funcion/buttons.js"
+import { BUTTONS_NUMBER } from "../funcion/buttons.js"
 import { signs } from "../funcion/buttons.js"
 
 
@@ -26,7 +26,9 @@ export class Render {
 
     renderInput() {
         this.root.innerHTML = `
-        <div class="menuHistory" id="menuHistory"></div>
+        <div class="menuHistory" id="menuHistory">
+       
+        </div>
 		<div class="calculator">
         
         
@@ -41,17 +43,14 @@ export class Render {
        <div class="menubutton">
        <button class="historybutton ${this.hide ? 'displaynone' : 'buttonver'}" type="button"  id="historybutton" value=""></button>
        </div>
-       <div class="historybutton_clear_container">
        
-       <input class="historybutton_clear" type="button" id="historybutton-clear" value="Clear history ">
-
-       </div>
        
        
 
        <div class="calculator_operacion" id="newRoot"></div>
        <div class="container_input">
        <input class="calculator_input" type="text" id="valor" value="" placeholder="0"  onpaste="return false" >
+       
 	  
        </div>
 		
@@ -59,13 +58,13 @@ export class Render {
        <div class="container_containerbuttons">
        
        <div id="container" class="containerButtons">
-       <div  class="containerButtons_buttons">
+       <div  class="containerButtons_buttons  buttonReset">
        <button class="button button_reset" type="reset" id="reset" value="">C</button>
        </div>
-       <div class="containerButtons_buttons containerButtons_buttons--mode">
-       <div class="button_mode">
+       <div class="containerButtons_buttons containerButtons_buttons--mode" id="buttonMode">
+       <button class="button_mode">
        <div class="button_mode_circule">
-       </div>
+       </button>
        </div>
        
        </div>
@@ -82,16 +81,16 @@ export class Render {
     }
     renderResult(result = 0) {
         document.getElementById("newRoot").innerHTML = `
-            <p id="result">Operation: ${result}</p>
+            <p class="operacion" id="result">Operation: ${result}</p>
            `
 
     }
 
     renderButtons() {
-        let button = buttons(9)
+        let button = BUTTONS_NUMBER
         button.forEach((number) => {
             document.getElementById("container").innerHTML += `
-           <div class="containerButtons_buttons">
+           <div class="containerButtons_buttons button_container${number}">
            <input class="button button${number}" type="button" value="${number}" id="${number}">
            </div>
            
@@ -104,7 +103,7 @@ export class Render {
         let s = signs
         s.forEach((S) => {
             document.getElementById("container").innerHTML += `
-            <div  class="containerButtons_buttons">
+            <div  class="containerButtons_buttons  button_container${S.id}">
             <input class="button button${S.id}" type="button" value="${S.signs}" id="${S.id}">
             </div>
 			
@@ -122,10 +121,19 @@ export class Render {
                </div>
         `
     }
+
+    hideResults() {
+        document.getElementById("history").innerHTML = ``
+    }
     renderButton() {
         document.getElementById("hidehistory").innerHTML = `
         <div class="HistoryTitle"> <p class="HistoryTitle_text"> Historial</p>  </div>
            <input type="button" value="x" class="buttonClose" id="hidehistory-button">
+           <div class="historybutton_clear_container">
+       
+           <input class="historybutton_clear" type="button" id="historybutton-clear" value="Clear history ">
+    
+           </div>
            
           
         `
