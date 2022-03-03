@@ -33,8 +33,9 @@ export const signs = [{
         id: 14,
 
     }, {
-        signs: "=",
-        id: 20,
+        signs: "π",
+        id: 18,
+        value: "3.141592"
 
     },
     {
@@ -54,10 +55,11 @@ export const signs = [{
         id: 19,
         value: "3,141592"
     },
+
     {
-        signs: "π",
-        id: 18,
-        value: "3.141592"
+        signs: "=",
+        id: 20,
+
     },
 
 ]

@@ -6,10 +6,11 @@ let calculate = new Calculadora()
 let calculator = new Operador()
 let render = new Render()
 
+
 render.renderInput()
+render.renderResult()
 render.renderButtons()
 render.renderSigns()
-render.renderResult()
 calculator.getkeysboards()
 calculator.getscreenkeys()
 calculator.NoRepeat()
@@ -90,6 +91,8 @@ export const setNewValueToInput = (newValue) => {
 
 
 const showHistory = () => {
+
+
     const onSubmitResultisTrue = () => {
         if (onSubmitResult) {
             let getLocalStorage = localStorage.getItem("calculo")
@@ -103,8 +106,14 @@ const showHistory = () => {
 
     render.renderButton()
 
+    document.getElementById("menuHistory").style.cssText = `display:block`
+    document.getElementById("historybutton_clear").style.display = `block`
+
     document.getElementById("hidehistory-button").addEventListener("click", hiddeHistory)
+
     historyfilter()
+
+
 
 
 }
@@ -119,12 +128,17 @@ export const historyfilter = (history = calculator.history) => {
 }
 const hiddeHistory = () => {
     render.hideHistory()
+        //document.getElementById("historybutton").style.cssText = `display:block;`
+    document.getElementById("menuHistory").style.cssText = `display:none`
+
 }
 
 document.getElementById("historybutton").addEventListener("click", showHistory)
 
 
+
 document.getElementById("20").addEventListener("click", () => {
+
     const [status] = onSubmitResult()
 
     if (!status) {
@@ -155,4 +169,8 @@ document.getElementById("historybutton-clear").addEventListener("click", () => {
     localStorage.clear()
     calculator.history = []
 
+})
+
+document.getElementById("historybutton").addEventListener("click", () => {
+    render.menuhistory()
 })
