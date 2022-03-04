@@ -14,13 +14,15 @@ render.renderSigns()
 calculator.getkeysboards()
 calculator.getscreenkeys()
 calculator.NoRepeat()
+calculator.delete()
 
-console.log(document.getElementById("buttonMode"), "funciona?")
+
 
 document.getElementById("buttonMode").addEventListener("click", () => {
     console.log("funciona!!!!!!!!!!!!")
     document.body.classList.toggle('dark')
 })
+
 
 
 
@@ -70,6 +72,8 @@ export const onSubmitResult = () => resolveOperation(() => {
     render.renderResult(currentOperation)
 
     setNewValueToInput(calculator.input + calculator.lastsigns)
+
+
 })
 
 export const onSubmitResult_onlyOpcion = () => resolveOperation(() => {
@@ -116,7 +120,7 @@ const showHistory = () => {
     render.renderButton()
 
     document.getElementById("menuHistory").style.cssText = `display:block`
-        // document.getElementById("historybutton_clear").style.cssText = `display:none`
+    document.getElementById("buttondelete").style.cssText = `display:none`
 
     document.getElementById("hidehistory-button").addEventListener("click", hiddeHistory)
     document.getElementById("historybutton-clear").addEventListener("click", () => {
@@ -144,7 +148,7 @@ export const historyfilter = (history = calculator.history) => {
 }
 const hiddeHistory = () => {
     render.hideHistory()
-        //document.getElementById("historybutton").style.cssText = `display:block;`
+    document.getElementById("buttondelete").style.cssText = `display:block;`
     document.getElementById("menuHistory").style.cssText = `display:none`
 
 }
@@ -184,4 +188,14 @@ document.getElementById("reset").addEventListener("click", () => {
 
 document.getElementById("historybutton").addEventListener("click", () => {
     render.menuhistory()
+})
+
+document.getElementById("buttondelete").addEventListener("click", () => {
+    console.log("funciona")
+
+    let currentOperation = document.getElementById("valor").value
+    let detele = currentOperation.substring(0, currentOperation.length - 1)
+    console.log(detele)
+    document.getElementById("valor").value = detele
+
 })

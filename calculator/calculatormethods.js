@@ -13,6 +13,7 @@ export class Operador {
         this.validate = /^([\+\/\.x-]?\(?[+-]?[\d*π?]{1,}\.?\d*\)?)(\^?)(π?\d*)([\/\+x-])+(\(?[+-]?[\d*π?]{1,}\.?\d*\)?)+(\^?)(π?\d*)([/x+-])?$/
     }
 
+
     specialOperations(value = this.input) {
         const firtsOption = /^([\+\/-]?\(?[+-]?[π?\d*]{1,}\.?\d*\)?)(\^?)(π?\d*){1,}$/
         let sign = value.match(firtsOption)

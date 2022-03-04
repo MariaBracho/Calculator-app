@@ -50,7 +50,10 @@ export class Render {
        <div class="calculator_operacion" id="newRoot"></div>
        <div class="container_input">
        <input class="calculator_input" type="text" id="valor" value="" placeholder="0"  onpaste="return false" >
-       
+       <div class="buttonDelete_container" id=delete>
+       <button class="buttonDelete" id="buttondelete"> </button>
+       </div>
+      
 	  
        </div>
 		
