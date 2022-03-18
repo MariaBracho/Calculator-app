@@ -63,6 +63,7 @@
     height: 40px;
     cursor: pointer;
     filter: invert(30%);
+    margin-right: 22px;
 }
 
 .historybutton {
@@ -96,7 +97,6 @@
     cursor: pointer;
     position: relative;
     font-family: 'Ubuntu', sans-serif;
-    ;
 }
 
 .calculator_input {
@@ -235,43 +235,42 @@
     width: 100%;
 }
 
-.history,
-.hidehistory,
-.title .historybutton_clear_container,
-.HistoryTitle {
-    position: relative;
-}
-
 .menuHistory {
     width: 100%;
-    height: 100vh;
+    height: auto;
+    min-height: 100%;
     background-color: var(--primaryColor);
-    position: absolute;
     display: none;
+    padding: 24px 0;
 }
 
 .buttonClose {
+    border: none;
+    outline: none;
     height: 24px;
     width: 24px;
-    background-color: white;
     border-radius: 50%;
     cursor: pointer;
     margin-left: 20px;
+    background-image: url(https://cdn-icons-png.flaticon.com/512/58/58253.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 
 .result_container {
     display: grid;
     place-items: center;
     grid-template-columns: repeat(2, auto);
-    line-height: 2;
+    line-height: 3;
     text-align: center;
 }
 
 .result {
     color: var(--White);
     font-size: 24px;
-    line-height: 3;
     font-family: 'Ubuntu', sans-serif;
+    width: 174px;
 }
 
 .HistoryTitle {
@@ -286,6 +285,12 @@
     font-family: 'Ubuntu', sans-serif;
 }
 
+span {
+    overflow-wrap: break-word;
+    display: block;
+    line-height: 1;
+}
+
 @media(min-width: 768px) {
     .sub_root {
         padding: 0 40px
@@ -295,6 +300,9 @@
     }
     .title_text {
         font-size: 22px;
+    }
+    .result {
+        width: 100%;
     }
 }
 

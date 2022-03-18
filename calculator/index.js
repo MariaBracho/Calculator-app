@@ -117,10 +117,11 @@ const showHistory = () => {
     }
     onSubmitResultisTrue()
 
-    render.renderButton()
+    render.renderMenuView()
+    render.renderHistoryTitle()
 
     document.getElementById("menuHistory").style.cssText = `display:block`
-    document.getElementById("buttondelete").style.cssText = `display:none`
+    document.getElementById("sub_root").style.cssText = `display:none`
 
     document.getElementById("hidehistory-button").addEventListener("click", hiddeHistory)
     document.getElementById("historybutton-clear").addEventListener("click", () => {
@@ -147,9 +148,8 @@ export const historyfilter = (history = calculator.history) => {
     }
 }
 const hiddeHistory = () => {
-    render.hideHistory()
-    document.getElementById("buttondelete").style.cssText = `display:block;`
     document.getElementById("menuHistory").style.cssText = `display:none`
+    document.getElementById("sub_root").style.cssText = `display:block`
 
 }
 
@@ -183,11 +183,6 @@ document.getElementById("valor").addEventListener('keyup', ((e) => {
 document.getElementById("reset").addEventListener("click", () => {
     render.renderResult("0")
     document.getElementById("valor").value = ""
-})
-
-
-document.getElementById("historybutton").addEventListener("click", () => {
-    render.menuhistory()
 })
 
 document.getElementById("buttondelete").addEventListener("click", () => {

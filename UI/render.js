@@ -22,6 +22,15 @@ export class Render {
         return this.hide = false
     }
 
+    renderMenuView() {
+        document.getElementById("menuHistory").innerHTML = `
+        
+        <div class="historyTile" id="historyTile"></div>
+        <div class="history" id="history">
+        
+        </div>
+        `
+    }
 
 
     renderInput() {
@@ -33,13 +42,10 @@ export class Render {
         
         
         <div class="title">
-        <p class="title_text">Calculadora</p>
+        <p class="title_text">Calculator</p>
         </div>
 		
-        <div class="hidehistory" id="hidehistory"></div>
-       <div class="history" id="history">
-       
-       </div>
+      
        <div class="menubutton">
        <button class="historybutton ${this.hide ? 'displaynone' : 'buttonver'}" type="button"  id="historybutton" value=""></button>
        </div>
@@ -117,9 +123,9 @@ export class Render {
 
         document.getElementById("history").innerHTML += `
                <div class="result_container">
-               <p class="result"> Operacion: ${newOperacion}  </p>
+               <p class="result"> Operation: <span>${newOperacion}</span> </p>
                
-               <p class="result"> Resultado: "${newResultado}"</p>
+               <p class="result"> Result: <span> "${newResultado } "</span></p>
                
                </div>
         `
@@ -128,10 +134,10 @@ export class Render {
     hideResults() {
         document.getElementById("history").innerHTML = ``
     }
-    renderButton() {
-        document.getElementById("hidehistory").innerHTML = `
-        <div class="HistoryTitle"> <p class="HistoryTitle_text"> Historial</p>  </div>
-           <input type="button" value="x" class="buttonClose" id="hidehistory-button">
+    renderHistoryTitle() {
+        document.getElementById("historyTile").innerHTML = `
+        <div class="HistoryTitle"> <p class="HistoryTitle_text"> History</p>  </div>
+           <button  class="buttonClose" id="hidehistory-button">  </button>
            <div class="historybutton_clear_container">
        
            <input class="historybutton_clear" type="button" id="historybutton-clear" value="Clear history ">
@@ -140,11 +146,6 @@ export class Render {
            
           
         `
-    }
-
-    hideHistory() {
-        document.getElementById("history").innerHTML = ``
-        document.getElementById("hidehistory").innerHTML = ``
     }
 
 
