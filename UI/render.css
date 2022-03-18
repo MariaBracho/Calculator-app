@@ -14,14 +14,14 @@
 
 .root {
     width: 100%;
-    height: auto;
-    min-height: 100vh;
+    height: 100vh;
 }
 
 .sub_root {
     max-width: 880px;
     min-width: 360px;
-    height: 100vh;
+    height: auto;
+    min-height: 100%;
     margin: 0 auto;
 }
 
@@ -109,7 +109,7 @@
     text-align: end;
     font-size: 46px;
     font-family: 'Signika Negative', sans-serif;
-    padding: 0 10px;
+    padding: 0 12px;
 }
 
 .containerButtons {
@@ -310,7 +310,7 @@ span {
 
 /*--------------  Dark Mode -----------------*/
 
-body.dark .root {
+body.dark .sub_root {
     background-color: var(--primaryColor);
     transition: 0.5s ease;
 }
