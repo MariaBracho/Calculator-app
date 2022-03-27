@@ -310,15 +310,16 @@ span {
 
 /*--------------  Dark Mode -----------------*/
 
-body.dark .sub_root {
+body.dark .root{
     background-color: var(--primaryColor);
     transition: 0.5s ease;
 }
 
+
+
 body.dark .calculator_input {
-    transition: 0.5s ease;
-    background-color: var(--primaryColor);
     color: var(--White);
+    background-color: transparent;
 }
 
 body.dark .title_text {
